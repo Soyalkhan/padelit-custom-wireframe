@@ -516,39 +516,145 @@ p { margin: 0; }
 .hero-marquee__track span em { font-style: normal; color: var(--c-lime); }
 .hero-marquee__track svg { width: 28px; height: 28px; color: var(--c-lime); }
 
-/* ---------- 8. BRAND STRIP (real logos) ---------- */
-.brandstrip { background: var(--c-bone); padding: 36px 0; border-bottom: 1px solid var(--c-line); }
+/* ---------- 8. BRAND STRIP (text marquee — logos to come later) ---------- */
+.brandstrip { background: var(--c-bone); padding: 32px 0; border-bottom: 1px solid var(--c-line); position: relative; }
 .brandstrip__head { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 22px; }
 .brandstrip__rail {
   overflow: hidden; position: relative;
-  /* fade edges so logos appear to dissolve in/out */
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-          mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
 }
+/* Edge fades */
+.brandstrip__rail::before,
+.brandstrip__rail::after {
+  content: ""; position: absolute; top: 0; bottom: 0; width: 80px;
+  z-index: 2; pointer-events: none;
+}
+.brandstrip__rail::before { left: 0;  background: linear-gradient(90deg,  var(--c-bone), transparent); }
+.brandstrip__rail::after  { right: 0; background: linear-gradient(-90deg, var(--c-bone), transparent); }
 .brandstrip__track {
-  display: flex; gap: 72px; align-items: center;
+  display: flex; gap: 48px; align-items: center;
   animation: ticker 40s linear infinite;
-  width: max-content;        /* keep flex children on one row */
+  width: max-content;
 }
-.brandstrip__logo {
-  flex: 0 0 auto;
-  width: 130px; height: 56px;
-  display: inline-flex; align-items: center; justify-content: center;
+.brandstrip__track span {
+  font-family: var(--f-display);
+  font-size: clamp(1.5rem, 3vw, 2.4rem);
+  letter-spacing: -.01em; text-transform: uppercase;
+  color: var(--c-navy); opacity: .68; white-space: nowrap;
+  display: inline-flex; align-items: center; gap: 14px;
+  transition: opacity var(--t-fast), color var(--t-fast);
 }
-.brandstrip__logo img {
-  max-height: 100%; max-width: 100%;
+.brandstrip__track span:hover { opacity: 1; color: var(--c-clay); }
+.brandstrip__track span::after {
+  content: ""; width: 8px; height: 8px; border-radius: 50%;
+  background: var(--c-navy); opacity: .28;
+}
+@media (max-width: 768px) {
+  .brandstrip__track { gap: 32px; }
+  .brandstrip__rail::before, .brandstrip__rail::after { width: 40px; }
+}
+
+/* ---------- 8b. FEATURED BRANDS (6-card grid) ---------- */
+.collections-grid {
+  display: grid; gap: 16px;
+  grid-template-columns: repeat(6, 1fr);
+}
+@media (max-width: 1200px) { .collections-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 600px)  { .collections-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; } }
+
+.coll-card {
+  display: flex; flex-direction: column;
+  background: var(--c-bone-2);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  border: 1px solid var(--c-line);
+  transition: transform var(--t-fast) var(--ease),
+              box-shadow var(--t-fast) var(--ease),
+              border-color var(--t-fast);
+}
+.coll-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--sh-2);
+  border-color: var(--c-line-2);
+}
+
+/* Image area — contain (not cover) so racket photos fit nicely with breathing room */
+.coll-card__media {
+  aspect-ratio: 1;
+  display: flex; align-items: center; justify-content: center;
+  padding: 18px;
+  background: var(--c-bone-2);
+  isolation: isolate;            /* contain blend mode to this scope, prevents weird stacking */
+}
+.coll-card__media img {
+  max-width: 100%; max-height: 100%;
   width: auto; height: auto;
   object-fit: contain;
-  opacity: .68;
-  filter: grayscale(0.5) contrast(1.05);
-  mix-blend-mode: multiply;   /* hides white bgs on JPG/PNG logos against bone */
-  transition: opacity var(--t-fast), filter var(--t-fast);
+  transition: transform .7s var(--ease);
+  /* multiply blends white-background pixels into the bone-2 card surface,
+     so source images shipping with a hard white bg (SIUX, Bullpadel, etc.)
+     render as if they were transparent — same look as the true-PNG ones. */
+  mix-blend-mode: multiply;
 }
-.brandstrip__track:hover { animation-play-state: paused; }
-.brandstrip__logo:hover img { opacity: 1; filter: none; }
-@media (max-width: 768px) {
-  .brandstrip__track { gap: 48px; }
-  .brandstrip__logo { width: 100px; height: 44px; }
+.coll-card:hover .coll-card__media img {
+  transform: scale(1.06) rotate(-3deg);
+}
+
+/* Caption bar — consistent height regardless of brand name length */
+.coll-card__cap {
+  background: var(--c-surface);
+  padding: 14px 14px 14px 16px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 8px;
+  border-top: 1px solid var(--c-line);
+  min-height: 64px;
+}
+.coll-card__cap h3 {
+  font-family: var(--f-display);
+  font-size: clamp(1.05rem, 1.55vw, 1.4rem);
+  text-transform: uppercase;
+  line-height: 1;
+  letter-spacing: -.01em;
+  color: var(--c-navy);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.coll-card__cap small {
+  display: block;
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--c-mute);
+  margin-top: 5px;
+  font-weight: 500;
+}
+.coll-card__arrow {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: var(--c-lime);
+  color: var(--c-navy);
+  display: inline-flex; align-items: center; justify-content: center;
+  flex: none;
+  transition: transform var(--t) var(--ease), background var(--t-fast);
+}
+.coll-card__arrow svg { width: 14px; height: 10px; }
+.coll-card:hover .coll-card__arrow {
+  transform: rotate(-45deg);
+  background: var(--c-clay);
+  color: #fff;
+}
+
+@media (max-width: 600px) {
+  .coll-card__media { padding: 12px; }
+  .coll-card__cap { padding: 10px 12px; min-height: 56px; }
+  .coll-card__cap h3 { font-size: 1rem; }
+  .coll-card__cap small { font-size: 9px; margin-top: 3px; }
+  .coll-card__arrow { width: 28px; height: 28px; }
+  .coll-card__arrow svg { width: 11px; height: 8px; }
 }
 
 /* ---------- 9. BENTO CATEGORY GRID ---------- */
@@ -887,9 +993,25 @@ p { margin: 0; }
 @media (max-width: 1024px) { .footer__nav { grid-template-columns: 1fr 1fr 1fr; } .footer__nav__brand { grid-column: 1 / -1; } }
 @media (max-width: 600px)  { .footer__nav { grid-template-columns: 1fr 1fr; } .footer__nav__brand { grid-column: 1 / -1; } }
 
-.footer__nav__brand { display: flex; flex-direction: column; gap: 14px; }
-.footer__nav__brand p { color: rgba(255,255,255,.55); max-width: 320px; font-size: var(--fs-14); }
-.footer__nav__brand .brand-img { height: 48px; }
+.footer__nav__brand {
+  display: flex; flex-direction: column;
+  align-items: flex-start;     /* every child snaps to the same left edge */
+  gap: 18px;
+}
+.footer__nav__brand p {
+  color: rgba(255,255,255,.55);
+  max-width: 320px;
+  font-size: var(--fs-14);
+  margin: 0;
+}
+.footer__nav__brand .brand-img {
+  height: 64px;
+  /* The source SVG has built-in whitespace around the wordmark.
+     Negative margin shifts the visible letters back into alignment
+     with the tagline + pill on the same left edge. */
+  margin-left: -10px;
+  filter: none;                /* drop a tiny shadow looks muddy on dark footer */
+}
 
 /* Utility row — region + social + payments */
 .footer__util {
