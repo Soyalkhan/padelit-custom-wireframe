@@ -455,73 +455,54 @@ p { margin: 0; }
   font-family: var(--f-mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; font-weight: 600;
 }
 
-/* Editorial stamp/badge — rotates slowly, fills the hero right-side dead space on mobile */
-.hero__stamp {
+/* Decorative jersey number — fills the hero right-side dead space on mobile.
+   Sports-magazine vibe: massive Anton "26" in lime with navy outline,
+   sits behind the title (z-index: 0). Small vertical wayfinding text beside it. */
+.hero__mark {
   display: none;
-  pointer-events: none;
-  user-select: none;
+  pointer-events: none; user-select: none;
 }
 @media (max-width: 1023px) {
-  .hero__stamp {
-    display: block;
+  .hero__mark {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
     position: absolute;
-    width: 132px; height: 132px;
-    right: 12px; top: 96px;
-    z-index: 1;
-    animation: stampSpin 28s linear infinite;
+    right: -10px;
+    top: 70px;
+    z-index: 0;          /* sits BEHIND the title text — hero__left is z-index: 2 */
   }
 }
 @media (max-width: 480px) {
-  .hero__stamp { width: 104px; height: 104px; top: 84px; right: 6px; }
+  .hero__mark { top: 56px; right: -12px; gap: 4px; }
 }
-.hero__stamp svg { width: 100%; height: 100%; display: block; overflow: visible; }
-.hero__stamp .ring {
-  fill: none;
-  stroke: var(--c-navy);
-  stroke-width: 1.5;
-  opacity: .35;
-}
-.hero__stamp .curveText {
-  fill: var(--c-navy);
-  font-family: var(--f-mono);
-  font-size: 11px;
-  letter-spacing: 3.5px;
-  font-weight: 600;
-  text-transform: uppercase;
-}
-.hero__stamp .core {
-  display: inline-block;        /* (centered text uses x/y) */
-}
-.hero__stamp__core {
-  position: absolute; inset: 0;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  text-align: center;
-  animation: stampSpinInverse 28s linear infinite;   /* keeps the centre text upright */
-}
-.hero__stamp__core b {
+
+.hero__mark__num {
   font-family: var(--f-display);
-  font-size: clamp(1.8rem, 4vw, 2.6rem);
-  line-height: 0.9;
-  color: var(--c-navy);
-  letter-spacing: -0.02em;
+  font-size: clamp(7rem, 32vw, 13rem);
+  line-height: 0.78;
+  letter-spacing: -.06em;
+  color: var(--c-lime);
+  -webkit-text-stroke: 2.5px var(--c-navy);
+  text-stroke: 2.5px var(--c-navy);
+  transform: rotate(-6deg);
+  transform-origin: bottom right;
+  opacity: .85;
 }
-.hero__stamp__core span {
+.hero__mark__rail {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
   font-family: var(--f-mono);
-  font-size: 9px;
-  letter-spacing: .18em;
+  font-size: 10px;
+  letter-spacing: .28em;
   text-transform: uppercase;
-  color: var(--c-clay);
-  margin-top: 4px;
+  color: var(--c-navy);
+  opacity: .55;
+  padding-bottom: 12px;
 }
-@keyframes stampSpin {
-  to { transform: rotate(360deg); }
-}
-@keyframes stampSpinInverse {
-  to { transform: rotate(-360deg); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .hero__stamp,
-  .hero__stamp__core { animation: none; }
+@media (max-width: 480px) {
+  .hero__mark__rail { display: none; }   /* phone too narrow — keep just the big number */
+  .hero__mark__num  { font-size: 8.5rem; -webkit-text-stroke-width: 2px; }
 }
 
 .hero-marquee {

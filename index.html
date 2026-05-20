@@ -218,34 +218,11 @@
 
 <!-- HERO -->
 <section class="hero">
-  <!-- Editorial stamp badge (mobile only — fills the right-side dead space next to OWN/THE) -->
-  <div class="hero__stamp" aria-hidden="true">
-    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <path id="stampCircle" d="M 100,100 m -78,0 a 78,78 0 1,1 156,0 a 78,78 0 1,1 -156,0" />
-      </defs>
-      <!-- outer & inner rings -->
-      <circle cx="100" cy="100" r="92" class="ring" />
-      <circle cx="100" cy="100" r="64" class="ring" />
-      <!-- curved text that orbits the ring -->
-      <text class="curveText">
-        <textPath href="#stampCircle" startOffset="0%">PADELIT · SS 26 · PRO SERIES · INDIA · OWN THE COURT · </textPath>
-      </text>
-      <!-- six tiny dots evenly placed as decorative tick marks -->
-      <g fill="var(--c-clay)">
-        <circle cx="100" cy="14"  r="2.5"/>
-        <circle cx="186" cy="100" r="2.5"/>
-        <circle cx="100" cy="186" r="2.5"/>
-        <circle cx="14"  cy="100" r="2.5"/>
-        <circle cx="160" cy="40"  r="1.6"/>
-        <circle cx="40"  cy="160" r="1.6"/>
-      </g>
-    </svg>
-    <!-- core counter-rotates so it stays upright -->
-    <div class="hero__stamp__core">
-      <b>SS<br/>26</b>
-      <span>Edition</span>
-    </div>
+  <!-- Decorative mark — sits behind the hero title on mobile, fills the right-side dead space.
+       Big lime jersey number "26" + small vertical brand rail. Quiet, editorial, no animation. -->
+  <div class="hero__mark" aria-hidden="true">
+    <span class="hero__mark__rail">SS · INDIA EDITION · OWN THE COURT</span>
+    <span class="hero__mark__num">26</span>
   </div>
 
   <div class="container">
