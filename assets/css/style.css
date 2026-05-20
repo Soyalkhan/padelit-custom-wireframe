@@ -455,6 +455,38 @@ p { margin: 0; }
   font-family: var(--f-mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; font-weight: 600;
 }
 
+/* Animated padel ball — decorative, mobile-only, lives in the hero right-side dead space */
+.hero__ball {
+  display: none;             /* desktop hides it */
+  pointer-events: none;
+  user-select: none;
+}
+@media (max-width: 1023px) {
+  .hero__ball {
+    display: block;
+    position: absolute;
+    width: 96px; height: 96px;
+    right: 14px; top: 110px;
+    z-index: 1;
+    filter: drop-shadow(0 14px 22px rgba(184, 224, 0, 0.32));
+    animation: ballBounce 4.5s ease-in-out infinite;
+  }
+}
+@media (max-width: 480px) {
+  .hero__ball { width: 78px; height: 78px; top: 96px; right: 8px; }
+}
+.hero__ball svg { width: 100%; height: 100%; display: block; }
+@keyframes ballBounce {
+  0%   { transform: translateY(0)    rotate(0deg);   }
+  25%  { transform: translateY(-28px) rotate(110deg); }
+  50%  { transform: translateY(0)    rotate(180deg); }
+  75%  { transform: translateY(-14px) rotate(270deg); }
+  100% { transform: translateY(0)    rotate(360deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero__ball { animation: none; }
+}
+
 .hero-marquee {
   background: var(--c-navy); color: var(--c-bone);
   border-top: 1px solid #1f2740; border-bottom: 1px solid #1f2740;
@@ -1565,10 +1597,19 @@ p { margin: 0; }
   .iconbtn { width: 40px; height: 40px; }
 
   /* Hero */
-  .hero { padding: 20px 0 40px; }
+  .hero { padding: 20px 0 40px; position: relative; overflow: hidden; }
   .hero__grid { gap: 20px; min-height: 0; }
-  .hero__left { padding-top: 8px; gap: 14px; }
-  .hero__title { font-size: clamp(2.8rem, 14vw, 4.6rem); }
+  .hero__left { padding-top: 8px; gap: 14px; position: relative; z-index: 2; }
+  .hero__title {
+    font-size: clamp(2.8rem, 14vw, 4.6rem);
+    line-height: 1.05;        /* extra room so stacked words don't kiss */
+  }
+  .hero__title em {
+    margin-top: .18em;        /* push COURT down so the line above breathes */
+    text-shadow: 3px 3px 0 var(--c-lime);   /* shorter shadow tail on small screens */
+    -webkit-text-stroke-width: 1.5px;        /* thinner outline = lighter visual weight */
+    padding-bottom: .04em;    /* room for shadow tail beneath the baseline */
+  }
   .hero__sub { font-size: var(--fs-15); }
   .hero__ctas { width: 100%; }
   .hero__ctas .btn { flex: 1; padding: 14px 16px; font-size: 12px; }

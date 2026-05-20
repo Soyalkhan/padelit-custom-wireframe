@@ -218,6 +218,23 @@
 
 <!-- HERO -->
 <section class="hero">
+  <!-- Decorative bouncing padel ball (mobile only — fills the right-side dead space next to OWN/THE) -->
+  <div class="hero__ball" aria-hidden="true">
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="ballGrad" cx="35%" cy="32%" r="70%">
+          <stop offset="0%"  stop-color="#F1FF85" />
+          <stop offset="55%" stop-color="#D7FF3C" />
+          <stop offset="100%" stop-color="#9FCB00" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="48" fill="url(#ballGrad)" />
+      <path d="M 6 36 Q 50 4 94 36"  stroke="#fff" stroke-width="2.2" fill="none" opacity=".85" stroke-linecap="round"/>
+      <path d="M 6 64 Q 50 96 94 64" stroke="#fff" stroke-width="2.2" fill="none" opacity=".85" stroke-linecap="round"/>
+      <circle cx="50" cy="50" r="48" fill="none" stroke="rgba(0,0,0,0.08)" stroke-width="2"/>
+    </svg>
+  </div>
+
   <div class="container">
     <div class="hero__grid">
       <div class="hero__left">
@@ -1010,7 +1027,6 @@
   </div>
 </aside>
 
-<span class="wf-label">PADELIT · WIREFRAME / CONCEPT</span>
 
 <script src="assets/js/main.js"></script>
 </body>
