@@ -120,7 +120,7 @@
           <div class="mega__featured">
             <h4>Brand spotlight</h4>
             <a href="brand.html" class="mega__card">
-              <img src="https://images.unsplash.com/photo-1599491727505-9ed4a7d3fc1d?auto=format&fit=crop&w=800&q=80" alt="" />
+              <img src="https://images.unsplash.com/photo-1551958219-acbc608c6377?auto=format&fit=crop&w=800&q=80" alt="" />
               <div class="mega__card__cap">
                 <div>
                   <small>Featured · May ‘26</small>
@@ -218,21 +218,34 @@
 
 <!-- HERO -->
 <section class="hero">
-  <!-- Decorative bouncing padel ball (mobile only — fills the right-side dead space next to OWN/THE) -->
-  <div class="hero__ball" aria-hidden="true">
-    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Editorial stamp badge (mobile only — fills the right-side dead space next to OWN/THE) -->
+  <div class="hero__stamp" aria-hidden="true">
+    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <radialGradient id="ballGrad" cx="35%" cy="32%" r="70%">
-          <stop offset="0%"  stop-color="#F1FF85" />
-          <stop offset="55%" stop-color="#D7FF3C" />
-          <stop offset="100%" stop-color="#9FCB00" />
-        </radialGradient>
+        <path id="stampCircle" d="M 100,100 m -78,0 a 78,78 0 1,1 156,0 a 78,78 0 1,1 -156,0" />
       </defs>
-      <circle cx="50" cy="50" r="48" fill="url(#ballGrad)" />
-      <path d="M 6 36 Q 50 4 94 36"  stroke="#fff" stroke-width="2.2" fill="none" opacity=".85" stroke-linecap="round"/>
-      <path d="M 6 64 Q 50 96 94 64" stroke="#fff" stroke-width="2.2" fill="none" opacity=".85" stroke-linecap="round"/>
-      <circle cx="50" cy="50" r="48" fill="none" stroke="rgba(0,0,0,0.08)" stroke-width="2"/>
+      <!-- outer & inner rings -->
+      <circle cx="100" cy="100" r="92" class="ring" />
+      <circle cx="100" cy="100" r="64" class="ring" />
+      <!-- curved text that orbits the ring -->
+      <text class="curveText">
+        <textPath href="#stampCircle" startOffset="0%">PADELIT · SS 26 · PRO SERIES · INDIA · OWN THE COURT · </textPath>
+      </text>
+      <!-- six tiny dots evenly placed as decorative tick marks -->
+      <g fill="var(--c-clay)">
+        <circle cx="100" cy="14"  r="2.5"/>
+        <circle cx="186" cy="100" r="2.5"/>
+        <circle cx="100" cy="186" r="2.5"/>
+        <circle cx="14"  cy="100" r="2.5"/>
+        <circle cx="160" cy="40"  r="1.6"/>
+        <circle cx="40"  cy="160" r="1.6"/>
+      </g>
     </svg>
+    <!-- core counter-rotates so it stays upright -->
+    <div class="hero__stamp__core">
+      <b>SS<br/>26</b>
+      <span>Edition</span>
+    </div>
   </div>
 
   <div class="container">
@@ -285,8 +298,29 @@
     </div>
     <div class="brandstrip__rail">
       <div class="brandstrip__track">
-        <span>NOX</span><span>BABOLAT</span><span>HEAD</span><span>BULLPADEL</span><span>WILSON</span><span>ADIDAS</span><span>ASICS</span><span>BLACK CROWN</span><span>SIUX</span><span>VOLT</span>
-        <span>NOX</span><span>BABOLAT</span><span>HEAD</span><span>BULLPADEL</span><span>WILSON</span><span>ADIDAS</span><span>ASICS</span><span>BLACK CROWN</span><span>SIUX</span><span>VOLT</span>
+        <div class="brandstrip__logo"><img src="https://padelit-paddle.myshopify.com/cdn/shop/files/nox_d131d97d-0f15-40ae-9c95-1ae949f4a36e.svg" alt="NOX" /></div>
+        <div class="brandstrip__logo"><img src="https://padelit-paddle.myshopify.com/cdn/shop/files/Babolat.svg" alt="Babolat" /></div>
+        <div class="brandstrip__logo"><img src="https://padelit-paddle.myshopify.com/cdn/shop/files/headLOGO.jpg" alt="HEAD" /></div>
+        <div class="brandstrip__logo"><img src="https://padelit-paddle.myshopify.com/cdn/shop/files/BULLPADEL.png" alt="Bullpadel" /></div>
+        <div class="brandstrip__logo"><img src="https://cdn.shopify.com/s/files/1/0753/3677/7945/files/wilson_b7182063-d0f1-44fa-9278-fcc694cc0145.png?v=1755672371" alt="Wilson" /></div>
+        <div class="brandstrip__logo"><img src="https://cdn.shopify.com/s/files/1/0753/3677/7945/files/Adidas-logo.jpg?v=1750239680" alt="Adidas" /></div>
+        <div class="brandstrip__logo"><img src="https://cdn.shopify.com/s/files/1/0753/3677/7945/files/asics_logo.svg?v=1766515937" alt="Asics" /></div>
+        <div class="brandstrip__logo"><img src="https://cdn.shopify.com/s/files/1/0753/3677/7945/files/Black-Crown-Logo-Header.png?v=1776879780" alt="Black Crown" /></div>
+        <div class="brandstrip__logo"><img src="https://padelit-paddle.myshopify.com/cdn/shop/files/siux.svg" alt="Siux" /></div>
+        <div class="brandstrip__logo"><img src="https://cdn.shopify.com/s/files/1/0753/3677/7945/files/volt_logo.png?v=1766515936" alt="Volt" /></div>
+        <div class="brandstrip__logo"><img src="https://cdn.shopify.com/s/files/1/0753/3677/7945/files/logo-1706726207.svg?v=1776879779" alt="Partner" /></div>
+        <!-- duplicate for seamless marquee loop -->
+        <div class="brandstrip__logo"><img src="https://padelit-paddle.myshopify.com/cdn/shop/files/nox_d131d97d-0f15-40ae-9c95-1ae949f4a36e.svg" alt="" aria-hidden="true" /></div>
+        <div class="brandstrip__logo"><img src="https://padelit-paddle.myshopify.com/cdn/shop/files/Babolat.svg" alt="" aria-hidden="true" /></div>
+        <div class="brandstrip__logo"><img src="https://padelit-paddle.myshopify.com/cdn/shop/files/headLOGO.jpg" alt="" aria-hidden="true" /></div>
+        <div class="brandstrip__logo"><img src="https://padelit-paddle.myshopify.com/cdn/shop/files/BULLPADEL.png" alt="" aria-hidden="true" /></div>
+        <div class="brandstrip__logo"><img src="https://cdn.shopify.com/s/files/1/0753/3677/7945/files/wilson_b7182063-d0f1-44fa-9278-fcc694cc0145.png?v=1755672371" alt="" aria-hidden="true" /></div>
+        <div class="brandstrip__logo"><img src="https://cdn.shopify.com/s/files/1/0753/3677/7945/files/Adidas-logo.jpg?v=1750239680" alt="" aria-hidden="true" /></div>
+        <div class="brandstrip__logo"><img src="https://cdn.shopify.com/s/files/1/0753/3677/7945/files/asics_logo.svg?v=1766515937" alt="" aria-hidden="true" /></div>
+        <div class="brandstrip__logo"><img src="https://cdn.shopify.com/s/files/1/0753/3677/7945/files/Black-Crown-Logo-Header.png?v=1776879780" alt="" aria-hidden="true" /></div>
+        <div class="brandstrip__logo"><img src="https://padelit-paddle.myshopify.com/cdn/shop/files/siux.svg" alt="" aria-hidden="true" /></div>
+        <div class="brandstrip__logo"><img src="https://cdn.shopify.com/s/files/1/0753/3677/7945/files/volt_logo.png?v=1766515936" alt="" aria-hidden="true" /></div>
+        <div class="brandstrip__logo"><img src="https://cdn.shopify.com/s/files/1/0753/3677/7945/files/logo-1706726207.svg?v=1776879779" alt="" aria-hidden="true" /></div>
       </div>
     </div>
   </div>
@@ -409,7 +443,7 @@
       <!-- pcard 2 -->
       <a href="product.html" class="pcard">
         <div class="pcard__media">
-          <img src="https://images.unsplash.com/photo-1599491727505-9ed4a7d3fc1d?auto=format&fit=crop&w=600&q=80" alt="" />
+          <img src="https://images.unsplash.com/photo-1551958219-acbc608c6377?auto=format&fit=crop&w=600&q=80" alt="" />
           <img src="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&fit=crop&w=600&q=80" alt="" />
           <div class="pcard__badges"><span class="pill pill--dark">PRO</span></div>
           <button class="pcard__wish" aria-label="Add to wishlist">
@@ -431,7 +465,7 @@
       <a href="product.html" class="pcard">
         <div class="pcard__media">
           <img src="https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?auto=format&fit=crop&w=600&q=80" alt="" />
-          <img src="https://images.unsplash.com/photo-1599491727505-9ed4a7d3fc1d?auto=format&fit=crop&w=600&q=80" alt="" />
+          <img src="https://images.unsplash.com/photo-1551958219-acbc608c6377?auto=format&fit=crop&w=600&q=80" alt="" />
           <div class="pcard__badges"><span class="pill pill--clay">-22%</span></div>
           <button class="pcard__wish" aria-label="Add to wishlist">
             <svg class="ico ico-sm" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
@@ -589,7 +623,7 @@
     <div class="product-rail">
       <a href="product.html" class="pcard">
         <div class="pcard__media">
-          <img src="https://images.unsplash.com/photo-1599491727505-9ed4a7d3fc1d?auto=format&fit=crop&w=600&q=80" alt="" />
+          <img src="https://images.unsplash.com/photo-1551958219-acbc608c6377?auto=format&fit=crop&w=600&q=80" alt="" />
           <img src="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&fit=crop&w=600&q=80" alt="" />
           <div class="pcard__badges"><span class="pill pill--dark">#1 BESTSELLER</span></div>
           <button class="pcard__wish" aria-label="Wishlist"><svg class="ico ico-sm" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
@@ -603,7 +637,7 @@
       <a href="product.html" class="pcard">
         <div class="pcard__media">
           <img src="https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?auto=format&fit=crop&w=600&q=80" alt="" />
-          <img src="https://images.unsplash.com/photo-1599491727505-9ed4a7d3fc1d?auto=format&fit=crop&w=600&q=80" alt="" />
+          <img src="https://images.unsplash.com/photo-1551958219-acbc608c6377?auto=format&fit=crop&w=600&q=80" alt="" />
           <button class="pcard__wish" aria-label="Wishlist"><svg class="ico ico-sm" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
         </div>
         <div class="pcard__body">
@@ -943,7 +977,7 @@
       <div class="mini-cart__price">₹24,999</div>
     </div>
     <div class="mini-cart__line">
-      <div class="mini-cart__img"><img src="https://images.unsplash.com/photo-1599491727505-9ed4a7d3fc1d?auto=format&fit=crop&w=300&q=80" alt="" /></div>
+      <div class="mini-cart__img"><img src="https://images.unsplash.com/photo-1551958219-acbc608c6377?auto=format&fit=crop&w=300&q=80" alt="" /></div>
       <div>
         <h5>Bullpadel Vertex 04</h5>
         <small>Black / Control</small>
@@ -998,7 +1032,7 @@
           <div class="pcard__body"><span class="pcard__brand">NOX</span><h3 class="pcard__title">AT10 Genius 18K</h3><div class="pcard__price"><span class="now">₹24,999</span></div></div>
         </a>
         <a href="product.html" class="pcard">
-          <div class="pcard__media"><img src="https://images.unsplash.com/photo-1599491727505-9ed4a7d3fc1d?auto=format&fit=crop&w=400&q=80" alt="" /></div>
+          <div class="pcard__media"><img src="https://images.unsplash.com/photo-1551958219-acbc608c6377?auto=format&fit=crop&w=400&q=80" alt="" /></div>
           <div class="pcard__body"><span class="pcard__brand">BULLPADEL</span><h3 class="pcard__title">Vertex 04 Control</h3><div class="pcard__price"><span class="now">₹22,499</span></div></div>
         </a>
       </div>

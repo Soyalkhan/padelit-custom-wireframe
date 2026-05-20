@@ -455,36 +455,73 @@ p { margin: 0; }
   font-family: var(--f-mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; font-weight: 600;
 }
 
-/* Animated padel ball — decorative, mobile-only, lives in the hero right-side dead space */
-.hero__ball {
-  display: none;             /* desktop hides it */
+/* Editorial stamp/badge — rotates slowly, fills the hero right-side dead space on mobile */
+.hero__stamp {
+  display: none;
   pointer-events: none;
   user-select: none;
 }
 @media (max-width: 1023px) {
-  .hero__ball {
+  .hero__stamp {
     display: block;
     position: absolute;
-    width: 96px; height: 96px;
-    right: 14px; top: 110px;
+    width: 132px; height: 132px;
+    right: 12px; top: 96px;
     z-index: 1;
-    filter: drop-shadow(0 14px 22px rgba(184, 224, 0, 0.32));
-    animation: ballBounce 4.5s ease-in-out infinite;
+    animation: stampSpin 28s linear infinite;
   }
 }
 @media (max-width: 480px) {
-  .hero__ball { width: 78px; height: 78px; top: 96px; right: 8px; }
+  .hero__stamp { width: 104px; height: 104px; top: 84px; right: 6px; }
 }
-.hero__ball svg { width: 100%; height: 100%; display: block; }
-@keyframes ballBounce {
-  0%   { transform: translateY(0)    rotate(0deg);   }
-  25%  { transform: translateY(-28px) rotate(110deg); }
-  50%  { transform: translateY(0)    rotate(180deg); }
-  75%  { transform: translateY(-14px) rotate(270deg); }
-  100% { transform: translateY(0)    rotate(360deg); }
+.hero__stamp svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.hero__stamp .ring {
+  fill: none;
+  stroke: var(--c-navy);
+  stroke-width: 1.5;
+  opacity: .35;
+}
+.hero__stamp .curveText {
+  fill: var(--c-navy);
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 3.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.hero__stamp .core {
+  display: inline-block;        /* (centered text uses x/y) */
+}
+.hero__stamp__core {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center;
+  animation: stampSpinInverse 28s linear infinite;   /* keeps the centre text upright */
+}
+.hero__stamp__core b {
+  font-family: var(--f-display);
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  line-height: 0.9;
+  color: var(--c-navy);
+  letter-spacing: -0.02em;
+}
+.hero__stamp__core span {
+  font-family: var(--f-mono);
+  font-size: 9px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--c-clay);
+  margin-top: 4px;
+}
+@keyframes stampSpin {
+  to { transform: rotate(360deg); }
+}
+@keyframes stampSpinInverse {
+  to { transform: rotate(-360deg); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .hero__ball { animation: none; }
+  .hero__stamp,
+  .hero__stamp__core { animation: none; }
 }
 
 .hero-marquee {
@@ -498,22 +535,39 @@ p { margin: 0; }
 .hero-marquee__track span em { font-style: normal; color: var(--c-lime); }
 .hero-marquee__track svg { width: 28px; height: 28px; color: var(--c-lime); }
 
-/* ---------- 8. BRAND STRIP ---------- */
-.brandstrip { background: var(--c-bone); padding: 28px 0; border-bottom: 1px solid var(--c-line); }
-.brandstrip__head { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 18px; }
-.brandstrip__rail { overflow: hidden; }
-.brandstrip__track { display: flex; gap: 48px; align-items: center; animation: ticker 40s linear infinite; }
-.brandstrip__track span {
-  font-family: var(--f-display);
-  font-size: clamp(1.5rem, 3vw, 2.4rem);
-  letter-spacing: -.01em; text-transform: uppercase;
-  color: var(--c-navy); opacity: .65; white-space: nowrap;
-  display: inline-flex; align-items: center; gap: 12px;
-  transition: opacity var(--t-fast);
+/* ---------- 8. BRAND STRIP (real logos) ---------- */
+.brandstrip { background: var(--c-bone); padding: 36px 0; border-bottom: 1px solid var(--c-line); }
+.brandstrip__head { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 22px; }
+.brandstrip__rail {
+  overflow: hidden; position: relative;
+  /* fade edges so logos appear to dissolve in/out */
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
 }
-.brandstrip__track span:hover { opacity: 1; color: var(--c-clay); }
-.brandstrip__track span::after {
-  content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--c-navy); opacity: .25;
+.brandstrip__track {
+  display: flex; gap: 72px; align-items: center;
+  animation: ticker 40s linear infinite;
+  width: max-content;        /* keep flex children on one row */
+}
+.brandstrip__logo {
+  flex: 0 0 auto;
+  width: 130px; height: 56px;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.brandstrip__logo img {
+  max-height: 100%; max-width: 100%;
+  width: auto; height: auto;
+  object-fit: contain;
+  opacity: .68;
+  filter: grayscale(0.5) contrast(1.05);
+  mix-blend-mode: multiply;   /* hides white bgs on JPG/PNG logos against bone */
+  transition: opacity var(--t-fast), filter var(--t-fast);
+}
+.brandstrip__track:hover { animation-play-state: paused; }
+.brandstrip__logo:hover img { opacity: 1; filter: none; }
+@media (max-width: 768px) {
+  .brandstrip__track { gap: 48px; }
+  .brandstrip__logo { width: 100px; height: 44px; }
 }
 
 /* ---------- 9. BENTO CATEGORY GRID ---------- */
